@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <h1 class="text-center">Dev Match Community</h1>
+    <p>Welcome to the Dev Match community. Users must fill out a profile in order to be visible in the community.</p>
+    <ul class="list-unstyled">
+      <% @users.each do |user| %>
+        <% if user.profile %> <!-- only show if the users made a profile -->
+        <li>
+          <div class="well row <%= cycle('white-bg', '') %>">
+            <div class="col-sm-4 text-center"> <!--alternates between the blank place -->
+              <% if user.profile.avatar %>
+                <%= link_to user do %>
+                  <%= image_tag user.profile.avatar.url(:thumb, :class => "avatar"), class: 'user-index-avatar' %> <!-- thumb is from the profile.rb paperclip model-->
+                <% end %>
+              <% end %>
+            </div>
+            
+            <div>
+              <%= link_to user do %>
+                <h2><%= user.profile.first_name %> <%= user.profile.last_name %></h2>
+              <% end %>
+              <p>
+                <%= user.profile.job_title %> 
+                <% if user.plan_id == 2 %>
+                  <span class="label label-danger">Premium</span>
+                <% else %>
+                  <span class="label label-primary">Basic</span>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
